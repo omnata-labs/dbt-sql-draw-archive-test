@@ -6,7 +6,7 @@ config:
     send_anonymous_usage_stats: False
     use_colors: True
 
-my_new_project:
+default:
   target: postgres
   outputs:
     postgres:
