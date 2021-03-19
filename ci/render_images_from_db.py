@@ -11,7 +11,7 @@ def connect_and_export():
     cur = conn.cursor()
 
     # Execute a command: this creates a new table
-    cur.execute("select table_name from information_schema.tables;")
+    cur.execute(f"select table_name from information_schema.tables where table_schema='{os.environ['POSTGRES_SCHEMA_NAME']}';")
     for row in cur.fetchall():
         table_name=row[0]
         print(table_name)
