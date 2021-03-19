@@ -7,7 +7,7 @@ macros:
       To use it, simply call the macro as the entire model body:
 
       ```
-      {{ blank_canvas(width=500, height=500) }}
+      {{ '{{' }} blank_canvas(width=500, height=500) {{ '}}' }}
       ```
 
     arguments:
