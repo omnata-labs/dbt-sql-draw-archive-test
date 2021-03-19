@@ -1,9 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import psycopg2
-import html
-import cProfile, pstats
-import pandas as pd
 
 def connect_and_export():
     # Connect to an existing database
