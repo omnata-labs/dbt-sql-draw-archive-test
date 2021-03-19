@@ -1,0 +1,40 @@
+name: dbt run
+# This workflow is triggered on pushes to the repository.
+on: [push]
+
+jobs:
+  build:
+    name: Run dbt, export images and deploy docs site
+    runs-on: ubuntu-latest
+    env:
+      POSTGRES_HOSTNAME: ${{ secrets.POSTGRES_HOSTNAME }}
+      POSTGRES_USERNAME: ${{ secrets.POSTGRES_USERNAME }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
+      POSTGRES_DB_NAME: github_dbt
+      POSTGRES_SCHEMA_NAME: artwork
+    
+    steps:
+      - name: Checkout current repo
+        uses: actions/checkout@v1
+
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+
+      - name: 'Run integration tests'
+        run: |
+          export POSTGRES_HOSTNAME=${{ env.POSTGRES_HOSTNAME}}
+          export POSTGRES_USERNAME=${{ env.POSTGRES_USERNAME}}
+          export POSTGRES_PASSWORD=${{ env.POSTGRES_PASSWORD}}
+          chmod +x ./ci/run_dbt.sh
+          ./ci/run_dbt.sh
+
+      - name: 'Master builds - do something else'
+        if: contains(github.ref, 'main')
+        run: echo "hi"
+
+
+
+

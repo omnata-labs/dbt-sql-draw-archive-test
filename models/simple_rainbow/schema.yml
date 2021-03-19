@@ -1,0 +1,9 @@
+
+version: 2
+
+models:
+    - name: blue_sky
+      description: "A nice blue sky ![dbt Logo](assets/dbt-logo.png)"
+
+    - name: green_grass
+      description: "Some nice green grass"
