@@ -1,0 +1,19 @@
+version: 2
+
+macros:
+  - name: circle_filled
+    description: |
+      This macro returns a boolean to indicate if the x and y values fall within the bounds of a circle.
+      It's colour agnostic so, designed to be used like so:
+      ```
+      when {{ '{{' }} circle_filled([150,150],20) {{ '}}' }} then 'yellow'
+      ```
+
+      For example usage, see the `blue_sky` model.
+    arguments:
+      - name: center
+        type: list
+        description: A list containing the x and y coordinates of the centre of the circle (e.g. [50,75])
+      - name: diameter
+        type: number
+        description: The diameter of the circle
