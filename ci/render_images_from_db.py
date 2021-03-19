@@ -5,7 +5,7 @@ import os
 
 def connect_and_export():
     # Connect to an existing database
-    conn = psycopg2.connect(dbname=os.env["POSTGRES_DB_NAME"],user=os.env["POSTGRES_USERNAME"], password=os.env["POSTGRES_PASSWORD"],host=os.env["POSTGRES_HOSTNAME"], options=f"-c search_path={os.env['POSTGRES_SCHEMA_NAME']}")
+    conn = psycopg2.connect(dbname=os.environ["POSTGRES_DB_NAME"],user=os.environ["POSTGRES_USERNAME"], password=os.environ["POSTGRES_PASSWORD"],host=os.environ["POSTGRES_HOSTNAME"], options=f"-c search_path={os.environ['POSTGRES_SCHEMA_NAME']}")
 
     # Open a cursor to perform database operations
     cur = conn.cursor()
