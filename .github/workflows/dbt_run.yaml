@@ -38,6 +38,7 @@ jobs:
           export POSTGRES_PASSWORD=${{ env.POSTGRES_PASSWORD }}
           chmod +x ./ci/run_dbt.sh
           ./ci/run_dbt.sh
+          mkdir target/images
 
       - name: 'Render images'
         run: |
