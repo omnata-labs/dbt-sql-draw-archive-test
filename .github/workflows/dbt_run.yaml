@@ -13,6 +13,7 @@ jobs:
       POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
       POSTGRES_DB_NAME: github_dbt
       POSTGRES_SCHEMA_NAME: artwork
+      DOCS_S3_BUCKET: omnata-sql-draw-archive-test
     
     steps:
       - name: Checkout current repo
@@ -23,13 +24,22 @@ jobs:
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
 
-      - name: 'Run integration tests'
+      - name: 'Run dbt'
         run: |
           export POSTGRES_HOSTNAME=${{ env.POSTGRES_HOSTNAME}}
           export POSTGRES_USERNAME=${{ env.POSTGRES_USERNAME}}
           export POSTGRES_PASSWORD=${{ env.POSTGRES_PASSWORD}}
           chmod +x ./ci/run_dbt.sh
           ./ci/run_dbt.sh
+
+      - name: 'Render images'
+        run: |
+          export POSTGRES_HOSTNAME=${{ env.POSTGRES_HOSTNAME}}
+          export POSTGRES_USERNAME=${{ env.POSTGRES_USERNAME}}
+          export POSTGRES_PASSWORD=${{ env.POSTGRES_PASSWORD}}
+          pip install -r requirements.txt
+          python ./ci/render_images_from_db.py
+
 
       - name: 'Master builds - do something else'
         if: contains(github.ref, 'main')
