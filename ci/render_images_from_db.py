@@ -18,12 +18,14 @@ def connect_and_export():
         file_name=f"target/images/{table_name}.png"
         cur.execute(f"SELECT x,y,colour FROM {table_name} order by x,y;")
         numpy_array = np.array(cur.fetchall())
-        generate_image_file(numpy_array,file_name,200,200,True)
+        generate_image_file(numpy_array,file_name,False)
 
 
-def generate_image_file(numpy_array,file_path,width,height,show_grid):
+def generate_image_file(numpy_array,file_path,show_grid):
     x=numpy_array[:, 0]
+    width=len(np.unique(x))
     y=numpy_array[:, 1]
+    height=len(np.unique(y))
     c=numpy_array[:, 2]
     major_tick_interval = 50
     minor_tick_interval = 10
