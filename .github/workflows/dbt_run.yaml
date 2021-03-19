@@ -46,10 +46,14 @@ jobs:
           export POSTGRES_USERNAME=${{ env.POSTGRES_USERNAME }}
           export POSTGRES_PASSWORD=${{ env.POSTGRES_PASSWORD }}
           pip install -r requirements.txt
+          # Queries all the models in the database, uses matplotlib to render pngs from them
           python ./ci/render_images_from_db.py
+          # Modifies the docs manifest.json to include images of each model
+          python ./ci/add_image_links_to_manifest.py
 
       - name: 'Copy docs to s3'
         run: |
+          # copy the docs folder recursively over to s3
           aws s3 cp target s3://${{ env.DOCS_S3_BUCKET }}/ --recursive --acl public-read
 
       - name: 'Master builds - do something else'
