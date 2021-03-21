@@ -58,7 +58,7 @@ jobs:
 
       - name: 'Concatenate all macros into one sql file, and copy to s3'
         run: |
-          find -name '*.sql' -not -name 'new_layer_materialization.sql' -exec cat {} \; > all_macros.sql
+          find macros -name '*.sql' -not -name 'new_layer_materialization.sql' -exec cat {} \; > all_macros.sql
           aws s3 cp all_macros.sql s3://${{ env.DOCS_S3_BUCKET }}/all_macros.sql --acl public-read         
 
       - name: 'Master builds - do something else'
