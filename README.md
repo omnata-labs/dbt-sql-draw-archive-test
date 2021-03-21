@@ -1,5 +1,26 @@
 # dbt-sql-draw-archive-test
 
+This dbt project holds macros and models for drawing bitmaps via SQL.
+
+## Shapes (circle, square, oval, etc)
+These are intended to define a boundary of pixels, without an opinion on colour or size.
+They return a conditional express, which will be true when the coordinate falls within the boundary of the shape. The user chooses the colour
+Use like: 
+`update bitmap_pixels set colour = 'red' where {{ the_macro() }}`
+or
+`update bitmap_pixels set colour = case when {{ the_macro() }} then 'red' else 'green' end`
+
+## Objects (rainbow, brick wall, dog, tree, etc)
+These are intended to draw something specific, with defined colours. Ideally, they will also be scale-agnostic.
+They return a when..then statement which includes the colour.
+
+Use like:
+`update bitmap_pixels set colour = case {{ rainbow() }} else colour end`
+
+## Filters (blur,anti-alias,invert)
+These are intended to output colours based on the existing colour at each pixel, possibly also using neighbouring colours.
+Like objects, they return a when..then statement which includes the colour.
+
 # Local development
 
 ## Prerequisites
