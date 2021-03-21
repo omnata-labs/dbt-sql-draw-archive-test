@@ -14,7 +14,7 @@ def connect_and_export():
     cur.execute(f"select table_name from information_schema.tables where table_schema='{os.environ['POSTGRES_SCHEMA_NAME']}';")
     for row in cur.fetchall():
         table_name=row[0]
-        print(table_name)
+        print(f"Generating image from {table_name}")
         file_name=f"target/images/{table_name}.png"
         cur.execute(f"SELECT x,y,colour FROM {table_name} order by x,y;")
         numpy_array = np.array(cur.fetchall())
