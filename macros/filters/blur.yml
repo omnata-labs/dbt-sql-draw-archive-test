@@ -1,6 +1,0 @@
-version: 2
-
-macros:
-  - name: blur
-    description: |
-      Blurs the image by setting each pixel to the average colour between it and it's neighbour.
