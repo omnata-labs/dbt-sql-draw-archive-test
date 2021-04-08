@@ -71,7 +71,7 @@ jobs:
 
       - name: 'Install AWS cli'
         run: |
-          sudo apt install awscli -y
+          apt install awscli -y
 
       - name: 'Copy docs to s3'
         run: |
