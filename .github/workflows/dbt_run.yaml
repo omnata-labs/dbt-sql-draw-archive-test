@@ -6,6 +6,7 @@ jobs:
   build:
     name: Run dbt, export images and deploy docs site
     runs-on: ubuntu-latest
+    container: python:3.8-alpine
 
         # Service containers to run with `container-job`
     services:
