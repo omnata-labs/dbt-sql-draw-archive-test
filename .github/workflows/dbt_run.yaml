@@ -69,6 +69,10 @@ jobs:
           # Modifies the docs manifest.json to include images of each model
           python ./ci/add_image_links_to_manifest.py
 
+      - name: 'Install AWS cli'
+        run: |
+          sudo apt install awscli -y
+
       - name: 'Copy docs to s3'
         run: |
           # copy the docs folder recursively over to s3
